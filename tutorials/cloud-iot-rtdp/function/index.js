@@ -20,10 +20,10 @@ exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
 
-  const deviceProm = getDeviceBy(attrs[0]);
+  const deviceProm = getDeviceBy(attrs[5]);
   deviceProm.then(devices => {
     const device = devices[0][0];
-    controlDeviceTemperature(device, attrs[2]);
+    controlDeviceTemperature(device, attrs[0]);
   });
 
   console.log(attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] +
