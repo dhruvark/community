@@ -26,8 +26,8 @@ exports.iot = function (event, callback) {
     controlDeviceTemperature(device, attrs[0]);
   });
   
-  process.stdout.write(device);
-  
+	console.log(deviceProm)
+	console.log(device)
   console.log(attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] +
   ', ' + attrs[4] + ', ' + attrs[5]);
   callback();
