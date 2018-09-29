@@ -22,8 +22,21 @@ exports.iot = function (event, callback) {
   
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
-    var ndevice = obj[keys[5]]
-  console.log('***************Print device' + ndevice)
-  /*for (var i = 0; i < keys.length; i++) {
-  console.log('****************** Print keys' + obj[keys[i]]);*/
+  var ndevice = obj[keys[5]]
+  
+  const deviceProm = getDeviceBy(ndevice);
+  deviceProm.then(devices => {
+  const device = devices[0][0];
+  /*controlDeviceTemperature(device, attrs[2]);*/
+  });
+  
+  
+  function getDeviceBy (deviceName) {
+  const query = datastore
+  .createQuery('device')
+  .filter('name', '=', deviceName);
+  console.log('***************query' + query)
+  return datastore.runQuery(query);
+}
+  
 }
