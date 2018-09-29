@@ -67,5 +67,5 @@ exports.iot = function (event, callback) {
   
   function controlDeviceDevicePressure (device, pressuremeasured) {
   if (pressuremeasured > device.pressAlertThreshold) {
-    console.warn(new warning('Measured Pressure of: ' + pressuremeasured + ' exceeds alert thredshold: ' + device.pressAlertThreshold + ' for ' + device.name));
+    console.warn('Measured Pressure of: ' + pressuremeasured + ' exceeds alert thredshold: ' + device.pressAlertThreshold + ' for ' + device.name);
   }}
