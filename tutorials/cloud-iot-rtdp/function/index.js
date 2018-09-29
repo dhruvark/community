@@ -36,8 +36,7 @@ exports.iot = function (event, callback) {
   controlDeviceDeviceDewpoint(device, ndewpoint);
   });
   
-  dpalertthreshold
-  
+ 
   function getDeviceBy (deviceName) {
   const query = datastore
   .createQuery('device')
