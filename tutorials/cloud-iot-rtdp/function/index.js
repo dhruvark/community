@@ -36,6 +36,11 @@ exports.iot = function (event, callback) {
   controlDeviceDeviceDewpoint(device, ndewpoint);
   });
   
+  console.log('Sensor readings sent on pub-sub --> 'attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] +
+  ', ' + attrs[4] + ', ' + attrs[5]);
+  callback();
+};
+  
  
   function getDeviceBy (deviceName) {
   const query = datastore
@@ -47,10 +52,9 @@ exports.iot = function (event, callback) {
   function controlDeviceTemperature (device, tempMeasured) {
   if (tempMeasured > device.tempAlertThredshold) {
     console.error(new Error('Measured temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
-  }
+  }}
   
   function controlDeviceDeviceDewpoint (device, dewpointmeasured) {
   if (dewpointmeasured > device.dpalertthreshold) {
     console.error(new Error('Measured Dewpoint of: ' + dewpointmeasured + ' exceeds alert thredshold: ' + device.dpalertthreshold + ' for ' + device.name));
-  }
-}
+  }}
