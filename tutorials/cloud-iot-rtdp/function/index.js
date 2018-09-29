@@ -22,7 +22,10 @@ exports.iot = function (event, callback) {
   
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
-  for (var i = 0; i < keys.length; i++) {
-  console.log('****************** Print keys' + obj[keys[i]]);
+  
+  var ndevice = obj[keys[5]]
+  console.log('***************Print device' + ndevice)
+  /*for (var i = 0; i < keys.length; i++) {
+  console.log('****************** Print keys' + obj[keys[i]]);*/
 }
 }
