@@ -23,6 +23,6 @@ exports.iot = function (event, callback) {
   var obj = JSON.parse(result);
   var keys = Object.keys(obj);
   for (var i = 0; i < keys.length; i++) {
-  console.log('****************** Print keys'obj[keys[i]]);
+  console.log('****************** Print keys' + obj[keys[i]]);
 }
 }
