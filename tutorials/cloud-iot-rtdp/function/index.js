@@ -34,6 +34,8 @@ exports.iot = function (event, callback) {
   const device = devices[0][0];
   controlDeviceTemperature(device, ntemp);
   controlDeviceDeviceDewpoint(device, ndewpoint);
+  controlDeviceDeviceHumidity(device, nhumidity);
+  controlDeviceDevicePressure(device, npressure);
   });
   
   console.log('Sensor readings sent on pub-sub --> ' + attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] + ', ' + attrs[4] + ', ' + attrs[5]);
@@ -56,4 +58,14 @@ exports.iot = function (event, callback) {
   function controlDeviceDeviceDewpoint (device, dewpointmeasured) {
   if (dewpointmeasured > device.dpalertthreshold) {
     console.error(new Error('Measured Dewpoint of: ' + dewpointmeasured + ' exceeds alert thredshold: ' + device.dpalertthreshold + ' for ' + device.name));
+  }}
+  
+  function controlDeviceDeviceHumidity (device, humiditymeasured) {
+  if (humiditymeasured > device.humidityAlertThreshold) {
+    console.error(new Error('Measured Humidity of: ' + humiditymeasured + ' exceeds alert thredshold: ' + device.humidityAlertThreshold + ' for ' + device.name));
+  }}
+  
+  function controlDeviceDevicePressure (device, pressuremeasured) {
+  if (pressuremeasured > device.pressAlertThreshold) {
+    console.error(new Error('Measured Pressure of: ' + pressuremeasured + ' exceeds alert thredshold: ' + device.pressAlertThreshold + ' for ' + device.name));
   }}
