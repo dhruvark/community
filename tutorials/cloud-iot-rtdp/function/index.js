@@ -21,7 +21,7 @@ exports.iot = function (event, callback) {
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
   
   if (attrs == null){
-	  console.error(new Error(' !Critical! - Sensor data not being receievd')
+	  console.error(new Error(' !Critical! - Sensor data not being receievd'));
   }
   
   var obj = JSON.parse(attrs);
