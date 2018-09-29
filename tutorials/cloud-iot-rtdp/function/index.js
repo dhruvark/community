@@ -55,4 +55,3 @@ exports.iot = function (event, callback) {
     console.error(new Error('Measured Dewpoint of: ' + dewpointmeasured + ' exceeds alert thredshold: ' + device.dpalertthreshold + ' for ' + device.name));
   }
 }
-}
