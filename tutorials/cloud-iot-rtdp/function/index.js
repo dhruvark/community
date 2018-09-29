@@ -22,7 +22,8 @@ exports.iot = function (event, callback) {
   
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
-  var ndevice = obj[keys[5]]
+  var ndevice = obj[keys[5]];
+  console.log('***************device name --> ' + ndevice)
   
   const deviceProm = getDeviceBy(ndevice);
   deviceProm.then(devices => {
