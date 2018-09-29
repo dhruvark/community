@@ -23,7 +23,7 @@ exports.iot = function (event, callback) {
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
   var ndevice = obj[keys[5]];
-  var ntemp = obj[keys[0];
+  var ntemp = obj[keys[0]];
   console.log('***************device name --> ' + ndevice);
   console.log('***************device temp --> ' + ntemp);
   
