@@ -23,8 +23,9 @@ exports.iot = function (event, callback) {
   const deviceProm = getDeviceBy(attrs[5]);
   deviceProm.then(devices => {
     const device = devices[0][0];
-    controlDeviceTemperature(device, attrs[2]);
 	console.log(device.name + device.tempAlertThredshold)
+    controlDeviceTemperature(device, attrs[2]);
+	
   });
 
   console.log(attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] +
@@ -36,8 +37,9 @@ function getDeviceBy (deviceName) {
   const query = datastore
   .createQuery('device')
   .filter('name', '=', deviceName);
-  return datastore.runQuery(query);
   console.log('printing query from detdeviceby' + query)
+  return datastore.runQuery(query);
+
 }
 
 function controlDeviceTemperature (device, tempMeasured) {
