@@ -52,20 +52,20 @@ exports.iot = function (event, callback) {
 
   function controlDeviceTemperature (device, tempMeasured) {
   if (tempMeasured > device.tempAlertThredshold) {
-    console.error(new Error('Measured temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
+    console.error(new Error(' ALERT! - Measured temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
   }}
   
   function controlDeviceDeviceDewpoint (device, dewpointmeasured) {
   if (dewpointmeasured > device.dpalertthreshold) {
-    console.error(new Error('Measured Dewpoint of: ' + dewpointmeasured + ' exceeds alert thredshold: ' + device.dpalertthreshold + ' for ' + device.name));
+    console.error(new Error(' ALERT! - Measured Dewpoint of: ' + dewpointmeasured + ' exceeds alert thredshold: ' + device.dpalertthreshold + ' for ' + device.name));
   }}
   
   function controlDeviceDeviceHumidity (device, humiditymeasured) {
   if (humiditymeasured > device.humidityAlertThreshold) {
-    console.error(new Error('Measured Humidity of: ' + humiditymeasured + ' exceeds alert thredshold: ' + device.humidityAlertThreshold + ' for ' + device.name));
+    console.error(new Error(' ALERT! - Measured Humidity of: ' + humiditymeasured + ' exceeds alert thredshold: ' + device.humidityAlertThreshold + ' for ' + device.name));
   }}
   
   function controlDeviceDevicePressure (device, pressuremeasured) {
   if (pressuremeasured > device.pressAlertThreshold) {
-    console.warn('Measured Pressure of: ' + pressuremeasured + ' exceeds alert thredshold: ' + device.pressAlertThreshold + ' for ' + device.name);
+    console.error(new Error(' ALERT! - Measured Pressure of: ' + pressuremeasured + ' exceeds alert thredshold: ' + device.pressAlertThreshold + ' for ' + device.name));
   }}
