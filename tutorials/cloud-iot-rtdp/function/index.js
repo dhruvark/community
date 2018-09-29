@@ -19,31 +19,13 @@ const datastore = Datastore();
 exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
-
-  console.log('************8Attribute 5 echo' + attrs[5])
-  const deviceProm = getDeviceBy(attrs[5]);
-  console.log('************DeviceProm' + deviceProm)
-  deviceProm.then(devices => {
-    const device = devices[0][0];
-    controlDeviceTemperature(device, attrs[2]);
-	
-  });
-
-  console.log(attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] +
-  ', ' + attrs[4] + ', ' + attrs[5]);
-  callback();
-};
-
-function getDeviceBy (deviceName) {
-  const query = datastore
-  .createQuery('device')
-  .filter('name', '=', deviceName);
-  return datastore.runQuery(query);
-
-}
-
-function controlDeviceTemperature (device, tempMeasured) {
-  if (tempMeasured > device.tempAlertThredshold) {
-    console.error(new Error('Measured temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
-  }
+  
+  console.log('*********************printing attrs' + attrs)
+  
+	function jsonParser(attrs) {
+		var string = JSON.stringify(attrs);
+		var objectValue = JSON.parse(string);
+		console.log('*********************printing value' + objectValue)
+		return objectValue['mm'];
+		}
 }
