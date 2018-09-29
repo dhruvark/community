@@ -22,6 +22,7 @@ exports.iot = function (event, callback) {
   
   if (attrs == null){
 	  console.error(new Error(' !Critical! - Sensor data not being receievd'));
+	  callback();
   }
   
   var obj = JSON.parse(attrs);
