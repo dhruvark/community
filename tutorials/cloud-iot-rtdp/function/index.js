@@ -20,6 +20,10 @@ exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
   
+  if (attrs == null){
+	  console.error(new Error(' !Critical! - Sensor data not being receievd')
+  }
+  
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
   var ndevice = obj[keys[5]];
