@@ -23,12 +23,14 @@ exports.iot = function (event, callback) {
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
   var ndevice = obj[keys[5]];
-  console.log('***************device name --> ' + ndevice)
+  var ntemp = obj[keys[0];
+  console.log('***************device name --> ' + ndevice);
+  console.log('***************device temp --> ' + ntemp);
   
   const deviceProm = getDeviceBy(ndevice);
   deviceProm.then(devices => {
   const device = devices[0][0];
-  /*controlDeviceTemperature(device, attrs[2]);*/
+  controlDeviceTemperature(device, ntemp);
   });
   
   
@@ -36,8 +38,11 @@ exports.iot = function (event, callback) {
   const query = datastore
   .createQuery('device')
   .filter('name', '=', deviceName);
-  console.log('***************query' + query)
   return datastore.runQuery(query);
 }
-  
+  function controlDeviceTemperature (device, tempMeasured) {
+  if (tempMeasured > device.tempAlertThredshold) {
+    console.error(new Error('Measured temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
+  }
+}
 }
