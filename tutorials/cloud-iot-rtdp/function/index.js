@@ -20,12 +20,9 @@ exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
   
-  console.log('*********************printing attrs' + attrs)
-  
-	function jsonParser(attrs) {
-		var string = JSON.stringify(attrs);
-		var objectValue = JSON.parse(string);
-		console.log('*********************printing value' + objectValue)
-		return objectValue['mm'];
-		}
+  var obj = JSON.parse(result);
+  var keys = Object.keys(obj);
+  for (var i = 0; i < keys.length; i++) {
+  console.log('****************** Print keys'obj[keys[i]]);
+}
 }
