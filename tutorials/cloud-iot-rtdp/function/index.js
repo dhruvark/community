@@ -24,9 +24,10 @@ exports.iot = function (event, callback) {
   deviceProm.then(devices => {
     const device = devices[0][0];
     controlDeviceTemperature(device, attrs[2]);
+	console.log(device.name + device.tempAlertThredshold)
   });
 
-  console.log(attrs[0] + ',TTTTTT ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] +
+  console.log(attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] +
   ', ' + attrs[4] + ', ' + attrs[5]);
   callback();
 };
@@ -36,6 +37,7 @@ function getDeviceBy (deviceName) {
   .createQuery('device')
   .filter('name', '=', deviceName);
   return datastore.runQuery(query);
+  console.log('printing query from detdeviceby' + query)
 }
 
 function controlDeviceTemperature (device, tempMeasured) {
