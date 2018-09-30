@@ -20,11 +20,7 @@ exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
   
-  if (attrs !== null){
-	  console.error(new Error(' !Critical! - Sensor data not being receievd'));
-	  callback();
-  }
-  
+ 
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
   var ndevice = obj[keys[4]];
@@ -57,7 +53,7 @@ exports.iot = function (event, callback) {
 
   function controlDeviceTemperature (device, tempMeasured) {
   if (tempMeasured > device.tempAlertThredshold) {
-    console.error(new Error(' ALERT! - Measured temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
+    console.error(new Error(' ALERT! - Measured Temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
   }}
   
   function controlDeviceDeviceDewpoint (device, dewpointmeasured) {
