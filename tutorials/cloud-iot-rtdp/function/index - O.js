@@ -12,16 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 */
-
-// [START functions_Datastore_setup]
 const Datastore = require('@google-cloud/datastore');
 // Instantiates a client
 const datastore = Datastore();
-
-// [START functions_pubsub_setup]
-const PubSub = require('@google-cloud/pubsub');
-// Instantiates a client
-const pubsub = PubSub();
 
 exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
