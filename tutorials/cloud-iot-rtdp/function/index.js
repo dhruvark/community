@@ -48,15 +48,46 @@ exports.iot = function (event, callback) {
   controlDeviceDevicePressure(device, npressure);
   });
   
-  const data = Buffer.from('Hello, world!');
-  Console.log(data);
-  publisher.publish(data);
+  //const data = Buffer.from('Hello, world!');
+  //publisher.publish(data);
   
   console.log('Sensor readings sent on pub-sub --> ' + attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] + ', ' + attrs[4] + ', ' + attrs[5] + ', ' + attrs[6] + ', ' + attrs[7]);
   callback();
 };
   
- 
+  function publishMessage(topicName, data) {
+  // [START pubsub_publish]
+  // [START pubsub_quickstart_publisher]
+  // Imports the Google Cloud client library
+  const PubSub = require(`@google-cloud/pubsub`);
+
+  // Creates a client
+  const pubsub = new PubSub();
+
+  /**
+   * TODO(developer): Uncomment the following lines to run the sample.
+   */
+  const topicName = 'iotlab';
+  const data = JSON.stringify({ foo: 'bar' });
+
+  //Publishes the message as a string, e.g. "Hello, world!" or JSON.stringify(someObject)
+  const dataBuffer = Buffer.from(data);
+
+  pubsub
+    .topic(topicName)
+    .publisher()
+    .publish(dataBuffer)
+    .then(messageId => {
+      console.log(`Message ${messageId} published.`);
+    })
+    .catch(err => {
+      console.error('ERROR:', err);
+    });
+  // [END pubsub_publish]
+  // [END pubsub_quickstart_publisher]
+}
+
+
   function getDeviceBy (deviceName) {
   const query = datastore
   .createQuery('device')
