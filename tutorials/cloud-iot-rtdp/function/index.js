@@ -61,6 +61,7 @@ exports.iot = function (event, callback) {
   function controlDeviceTemperature (device, tempMeasured) {
   if (tempMeasured > device.tempAlertThredshold) {
     console.error(new Error(' ALERT! - Measured Temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
+	PubSub.publish('iotlab', 'hello world!');
   }}
   
   function controlDeviceDeviceDewpoint (device, dewpointmeasured) {
