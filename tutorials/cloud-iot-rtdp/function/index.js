@@ -48,7 +48,8 @@ exports.iot = function (event, callback) {
   controlDeviceDevicePressure(device, npressure);
   });
   
-  publisher.publish("hello");
+  const data = Buffer.from('Hello, world!');
+  publisher.publish(data);
   
   console.log('Sensor readings sent on pub-sub --> ' + attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] + ', ' + attrs[4] + ', ' + attrs[5] + ', ' + attrs[6] + ', ' + attrs[7]);
   callback();
