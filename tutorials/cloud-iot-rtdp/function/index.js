@@ -53,25 +53,36 @@ exports.sensordata = function (event, callback) {
 
   function controlDeviceTemperature (device, tempMeasured) {
   if (tempMeasured > device.max_temp) {
-    console.error(new Error(' !ALERT --> ' + device.name + ' <-- has recorded temperature above the max. threshold ' + device.max_temp + ' . Current temperature is: ' + tempMeasured));
+    console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded temperature above the max. threshold of ' + device.max_temp + 'F. Current temperature is: ' + tempMeasured + 'F.'));
   } else if (tempMeasured < device.min_temp) {
-    console.error(new Error(' !ALERT --> ' + device.name + ' <-- has recorded temperature below the min. threshold ' + device.min_temp + ' . Current temperature is: ' + tempMeasured));
+    console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded temperature below the min. threshold of ' + device.min_temp + 'F. Current temperature is: ' + tempMeasured + 'F.'));
   } else {
-	console.log(' ' + device.name + ' is recording temperature between the optimal range of 70F to 73F. Current temperature is: ' + tempMeasured);
+	console.log(' ' + device.name + ' is recording temperature between the optimal range of 70F to 73F. Current temperature is: ' + tempMeasured + 'F.');
   }}
-  
   
   function controlDeviceDeviceDewpoint (device, dewpointmeasured) {
   if (dewpointmeasured > device.max_dewpoint) {
-    console.error(new Error(' ALERT! - Measured Dewpoint of: ' + dewpointmeasured + ' exceeds alert thredshold: ' + device.max_dewpoint + ' for ' + device.name));
+    console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded dew point above the max. threshold of ' + device.max_dewpoint + '%. Current dew point is: ' + dewpointmeasured + '%.'));
+  } else if (dewpointmeasured < device.min_dewpoint) {
+    console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded dew point below the min. threshold of ' + device.min_dewpoint + '%. Current dew point is: ' + dewpointmeasured + '%.'));
+  } else {
+	console.log(' ' + device.name + ' is recording dew point between the optimal range of 30% to 35%. Current dew point is: ' + dewpointmeasured + '%.');
   }}
   
-  function controlDeviceDeviceHumidity (device, humiditymeasured) {
-  if (humiditymeasured > device.max_humidty) {
-    console.error(new Error(' ALERT! - Measured Humidity of: ' + humiditymeasured + ' exceeds alert thredshold: ' + device.max_humidty + ' for ' + device.name));
+  function controlDeviceDeviceDewpoint (device, humiditymeasured) {
+  if (humiditymeasured > device.max_dewpoint) {
+    console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded humidity above the max. threshold of ' + device.max_humidity + '%. Current humidity is: ' + humiditymeasured + '%.'));
+  } else if (humiditymeasured < device.min_dewpoint) {
+    console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded humidity below the min. threshold of ' + device.min_humidity + '%. Current humidity is: ' + humiditymeasured + '%.'));
+  } else {
+	console.log(' ' + device.name + ' is recording humidity between the optimal range of 25% to 30%. Current humidity is: ' + humiditymeasured + '%.');
   }}
   
-  function controlDeviceDevicePressure (device, max_pressure) {
-  if (pressuremeasured > device.pressAlertThreshold) {
-    console.error(new Error(' ALERT! - Measured Pressure of: ' + pressuremeasured + ' exceeds alert thredshold: ' + device.max_pressure + ' for ' + device.name));
+  function controlDeviceDeviceDewpoint (device, pressuremeasured) {
+  if (pressuremeasured > device.max_pressure) {
+    console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded pressure above the max. threshold of ' + device.max_pressure + 'Pa. Current pressure is: ' + pressuremeasured + 'Pa.'));
+  } else if (pressuremeasured < device.min_pressure) {
+    console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded pressure below the min. threshold of ' + device.min_pressure + 'Pa. Current pressure is: ' + pressuremeasured + 'Pa.'));
+  } else {
+	console.log(' ' + device.name + ' is recording pressure between the optimal range of 12Pa to 14.7Pa. Current pressure is: ' + pressuremeasured + 'Pa.');
   }}
