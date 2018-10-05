@@ -55,7 +55,7 @@ exports.iot = function (event, callback) {
   callback();
 };
   
-  function publishMessage(topicName, data) {
+  function publishMessage(topic1, data) {
   // [START pubsub_publish]
   // [START pubsub_quickstart_publisher]
   // Imports the Google Cloud client library
@@ -67,14 +67,14 @@ exports.iot = function (event, callback) {
   /**
    * TODO(developer): Uncomment the following lines to run the sample.
    */
-  const topicName = 'iotlab';
+  const topic1 = 'iotlab';
   const data = JSON.stringify({ foo: 'bar' });
 
   //Publishes the message as a string, e.g. "Hello, world!" or JSON.stringify(someObject)
   const dataBuffer = Buffer.from(data);
 
   pubsub
-    .topic(topicName)
+    .topic(topic1)
     .publisher()
     .publish(dataBuffer)
     .then(messageId => {
