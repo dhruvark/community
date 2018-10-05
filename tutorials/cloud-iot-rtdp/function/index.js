@@ -16,7 +16,7 @@ const Datastore = require('@google-cloud/datastore');
 // Instantiates a client
 const datastore = Datastore();
 
-exports.iot = function (event, callback) {
+exports.sensordata = function (event, callback) {
   const pubsubMessage = event.data;
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
   
