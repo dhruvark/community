@@ -70,9 +70,9 @@ exports.sensordata = function (event, callback) {
   }}
   
   function controlDeviceDeviceHumidity (device, humiditymeasured) {
-  if (humiditymeasured > device.max_dewpoint) {
+  if (humiditymeasured > device.max_humidity) {
     console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded humidity above the max. threshold of ' + device.max_humidity + '%. Current humidity is: ' + humiditymeasured + '%.'));
-  } else if (humiditymeasured < device.min_dewpoint) {
+  } else if (humiditymeasured < device.min_humidity) {
     console.error(new Error(' !ALERT! --> ' + device.name + ' <-- has recorded humidity below the min. threshold of ' + device.min_humidity + '%. Current humidity is: ' + humiditymeasured + '%.'));
   } else {
 	console.log(' ' + device.name + ' is recording humidity between the optimal range of 25% to 30%. Current humidity is: ' + humiditymeasured + '%.');
