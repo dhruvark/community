@@ -1,4 +1,10 @@
 {
+  "dependencies": {
+    "@google-cloud/datastore": "1.3.4"
+  }
+}
+
+{
   "name": "nodejs-docs-samples-functions-pubsub",
   "version": "0.0.1",
   "private": true,
