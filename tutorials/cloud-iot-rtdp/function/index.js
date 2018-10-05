@@ -19,9 +19,9 @@ const Datastore = require('@google-cloud/datastore');
 const datastore = Datastore();
 
 // [START functions_pubsub_setup]
-const PubSub = require('@google-cloud/pubsub');
+//const PubSub = require('@google-cloud/pubsub');
 // Instantiates a client
-const pubsub = PubSub();
+//const pubsub = PubSub();
 
 exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
