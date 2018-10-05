@@ -12,31 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 */
-
-// [START functions_Datastore_setup]
 const Datastore = require('@google-cloud/datastore');
 // Instantiates a client
 const datastore = Datastore();
-
-// [START functions_pubsub_setup]
-const PubSub = require('@google-cloud/pubsub');
-// Instantiates a client
-const pubsub = PubSub();
-const topic = pubsub.topic('projects/iot-analytics-216917/topics/iotlab');
-const publisher = topic.publisher();
 
 exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
   
- // 0: pressure, 1: temperature, 2: dewpoint, 3: device, 4: timestamp, 5: latitude, 6: longiture, 7: humidity
+ //0: temperature, 1: dewpoint, 2: timestamp, 3: humidity, 4: pressure, 5: metrocode, 6: device
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
-  var ndevice = obj[keys[3]];
-  var ntemp = obj[keys[1]];
-  var ndewpoint = obj[keys[2]];
-  var nhumidity = obj[keys[7]];
-  var npressure = obj[keys[0]];
+  var ndevice = obj[keys[6]];
+  var ntemp = obj[keys[0]];
+  var ndewpoint = obj[keys[1]];
+  var nhumidity = obj[keys[3]];
+  var npressure = obj[keys[4]];
  
  
   const deviceProm = getDeviceBy(ndevice);
@@ -48,48 +39,11 @@ exports.iot = function (event, callback) {
   controlDeviceDevicePressure(device, npressure);
   });
   
-  //const data = Buffer.from('Hello, world!');
-  //publisher.publish(data);
-  publishMessage(topicName, tosend);
-  console.log('Sensor readings sent on pub-sub --> ' + attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] + ', ' + attrs[4] + ', ' + attrs[5] + ', ' + attrs[6] + ', ' + attrs[7]);
+  console.log('Sensor readings sent on pub-sub --> ' + attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] + ', ' + attrs[4] + ', ' + attrs[5] + ', ' + attrs[6]);
   callback();
 };
   
-  const topicName = 'iotlab';
-  const tosend = JSON.stringify({ foo: 'bar' });
-  
-  function publishMessage(topicName, tosend) {
-  // [START pubsub_publish]
-  // [START pubsub_quickstart_publisher]
-  // Imports the Google Cloud client library
-  const PubSub = require(`@google-cloud/pubsub`);
-
-  // Creates a client
-  const pubsub = new PubSub();
-
-  /**
-   * TODO(developer): Uncomment the following lines to run the sample.
-   */
-
-
-  //Publishes the message as a string, e.g. "Hello, world!" or JSON.stringify(someObject)
-  const dataBuffer = Buffer.from(tosend);
-
-  pubsub
-    .topic(topicName)
-    .publisher()
-    .publish(dataBuffer)
-    .then(messageId => {
-      console.log(`Message ${messageId} published.`);
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
-  // [END pubsub_publish]
-  // [END pubsub_quickstart_publisher]
-}
-
-
+ 
   function getDeviceBy (deviceName) {
   const query = datastore
   .createQuery('device')
@@ -98,21 +52,27 @@ exports.iot = function (event, callback) {
 }
 
   function controlDeviceTemperature (device, tempMeasured) {
-  if (tempMeasured > device.tempAlertThredshold) {
-    console.error(new Error(' ALERT! - Measured Temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
+  if (tempMeasured > device.max_temp) {
+    console.error(new Error(' !ALERT --> ' + device.name + ' <-- has recorded temperature above the max. threshold ' + device.max_temp + ' . Current temperature is: ' + tempMeasured));
+  }
+  else if (tempMeasured < device.min_temp) {
+    console.error(new Error(' !ALERT --> ' + device.name + ' <-- has recorded temperature below the min. threshold ' + device.min_temp + ' . Current temperature is: ' + tempMeasured));
+  else {
+	console.log(' ' + device.name + ' is recording temperature between the optimal range of 70F to 73F. Current temperature is: ' + tempMeasured);
   }}
   
+  
   function controlDeviceDeviceDewpoint (device, dewpointmeasured) {
-  if (dewpointmeasured > device.dpalertthreshold) {
-    console.error(new Error(' ALERT! - Measured Dewpoint of: ' + dewpointmeasured + ' exceeds alert thredshold: ' + device.dpalertthreshold + ' for ' + device.name));
+  if (dewpointmeasured > device.max_dewpoint) {
+    console.error(new Error(' ALERT! - Measured Dewpoint of: ' + dewpointmeasured + ' exceeds alert thredshold: ' + device.max_dewpoint + ' for ' + device.name));
   }}
   
   function controlDeviceDeviceHumidity (device, humiditymeasured) {
-  if (humiditymeasured > device.humidityAlertThreshold) {
-    console.error(new Error(' ALERT! - Measured Humidity of: ' + humiditymeasured + ' exceeds alert thredshold: ' + device.humidityAlertThreshold + ' for ' + device.name));
+  if (humiditymeasured > device.max_humidty) {
+    console.error(new Error(' ALERT! - Measured Humidity of: ' + humiditymeasured + ' exceeds alert thredshold: ' + device.max_humidty + ' for ' + device.name));
   }}
   
-  function controlDeviceDevicePressure (device, pressuremeasured) {
+  function controlDeviceDevicePressure (device, max_pressure) {
   if (pressuremeasured > device.pressAlertThreshold) {
-    console.error(new Error(' ALERT! - Measured Pressure of: ' + pressuremeasured + ' exceeds alert thredshold: ' + device.pressAlertThreshold + ' for ' + device.name));
+    console.error(new Error(' ALERT! - Measured Pressure of: ' + pressuremeasured + ' exceeds alert thredshold: ' + device.max_pressure + ' for ' + device.name));
   }}
