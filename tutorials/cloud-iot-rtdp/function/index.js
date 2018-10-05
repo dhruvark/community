@@ -54,10 +54,9 @@ exports.sensordata = function (event, callback) {
   function controlDeviceTemperature (device, tempMeasured) {
   if (tempMeasured > device.max_temp) {
     console.error(new Error(' !ALERT --> ' + device.name + ' <-- has recorded temperature above the max. threshold ' + device.max_temp + ' . Current temperature is: ' + tempMeasured));
-  }
-  else if (tempMeasured < device.min_temp) {
+  } else if (tempMeasured < device.min_temp) {
     console.error(new Error(' !ALERT --> ' + device.name + ' <-- has recorded temperature below the min. threshold ' + device.min_temp + ' . Current temperature is: ' + tempMeasured));
-  else {
+  } else {
 	console.log(' ' + device.name + ' is recording temperature between the optimal range of 70F to 73F. Current temperature is: ' + tempMeasured);
   }}
   
