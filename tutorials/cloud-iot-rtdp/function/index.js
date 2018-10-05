@@ -46,7 +46,10 @@ exports.iot = function (event, callback) {
   controlDeviceDevicePressure(device, npressure);
   });
   
+  var message = "hello"
+  
   console.log('Sensor readings sent on pub-sub --> ' + attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] + ', ' + attrs[4] + ', ' + attrs[5] + ', ' + attrs[6] + ', ' + attrs[7]);
+  return TOPIC.publish(message)
   callback();
 };
   
@@ -61,7 +64,6 @@ exports.iot = function (event, callback) {
   function controlDeviceTemperature (device, tempMeasured) {
   if (tempMeasured > device.tempAlertThredshold) {
     console.error(new Error(' ALERT! - Measured Temperature of: ' + tempMeasured + ' exceeds alert thredshold: ' + device.tempAlertThredshold + ' for ' + device.name));
-	PubSub.publish('iotlab', 'hello world!');
   }}
   
   function controlDeviceDeviceDewpoint (device, dewpointmeasured) {
