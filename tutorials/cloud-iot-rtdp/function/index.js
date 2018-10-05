@@ -22,7 +22,7 @@ const datastore = Datastore();
 const PubSub = require('@google-cloud/pubsub');
 // Instantiates a client
 const pubsub = PubSub();
-const topic = pubsub.topic('iotlab');
+const topic = pubsub.topic('projects/iot-analytics-216917/topics/iotlab');
 const publisher = topic.publisher();
 
 exports.iot = function (event, callback) {
@@ -49,7 +49,7 @@ exports.iot = function (event, callback) {
   });
   
   const data = Buffer.from('Hello, world!');
-  Console.log(data)
+  Console.log(data);
   publisher.publish(data);
   
   console.log('Sensor readings sent on pub-sub --> ' + attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] + ', ' + attrs[4] + ', ' + attrs[5] + ', ' + attrs[6] + ', ' + attrs[7]);
