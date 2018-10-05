@@ -50,15 +50,15 @@ exports.iot = function (event, callback) {
   
   //const data = Buffer.from('Hello, world!');
   //publisher.publish(data);
-  publishMessage(topicName, data);
+  publishMessage(topicName, tosend);
   console.log('Sensor readings sent on pub-sub --> ' + attrs[0] + ', ' + attrs[1] + ', ' + attrs[2] + ', ' + attrs[3] + ', ' + attrs[4] + ', ' + attrs[5] + ', ' + attrs[6] + ', ' + attrs[7]);
   callback();
 };
   
-  const topicName = 'iotlab';
-  const data = JSON.stringify({ foo: 'bar' });
+  const topicName = 'projects/iot-analytics-216917/topics/iotlab';
+  const tosend = JSON.stringify({ foo: 'bar' });
   
-  function publishMessage(topicName, data) {
+  function publishMessage(topicName, tosend) {
   // [START pubsub_publish]
   // [START pubsub_quickstart_publisher]
   // Imports the Google Cloud client library
@@ -73,7 +73,7 @@ exports.iot = function (event, callback) {
 
 
   //Publishes the message as a string, e.g. "Hello, world!" or JSON.stringify(someObject)
-  const dataBuffer = Buffer.from(data);
+  const dataBuffer = Buffer.from(tosend);
 
   pubsub
     .topic(topicName)
