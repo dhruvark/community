@@ -55,7 +55,7 @@ exports.iot = function (event, callback) {
   callback();
 };
   
-  const topicName = 'projects/iot-analytics-216917/topics/iotlab';
+  const topicName = 'iotlab';
   const tosend = JSON.stringify({ foo: 'bar' });
   
   function publishMessage(topicName, tosend) {
