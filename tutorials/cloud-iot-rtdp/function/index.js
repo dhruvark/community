@@ -27,10 +27,10 @@ exports.iot = function (event, callback) {
   const pubsubMessage = event.data;
   var attrs = Buffer.from(pubsubMessage.data, 'base64').toString().split(',');
   
- 
+ // 0: pressure, 1: temperature, 2: dewpoint, 3: device, 4: timestamp, 5: latitude, 6: longiture, 7: humidity
   var obj = JSON.parse(attrs);
   var keys = Object.keys(obj);
-  var ndevice = obj[keys[4]];
+  var ndevice = obj[keys[3]];
   var ntemp = obj[keys[1]];
   var ndewpoint = obj[keys[2]];
   var nhumidity = obj[keys[7]];
